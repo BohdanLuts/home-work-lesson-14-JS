@@ -52,7 +52,7 @@ console.log("isSimple(10)", isSimple(10));
  * @returns {number} boolean value when dividing without a remainder of a divisible number by a divisor
  */
 function checkMultiplicity(first, last) {
-  result = first % last;
+  let result = first % last;
   return result === 0;
 }
 console.log(checkMultiplicity(25, 5));
