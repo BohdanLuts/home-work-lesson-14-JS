@@ -19,7 +19,7 @@ const customer = {
   lastName: "Sviridov",
   email: "sviridov@abc.com",
   password: "qwerty",
-  phone: 0953332211,
+  phone: "0953332211",
   adress: {
     city: "Kyiv",
     street: "Gonchara",
@@ -36,7 +36,7 @@ const customer = {
 
 console.log("customer", customer);
 console.log(customer.getFullAdress());
-customer.changePhone(123456789);
+customer.changePhone("123456789");
 customer.isMale = true;
 delete customer.adress;
 console.log("customer after:", customer);
