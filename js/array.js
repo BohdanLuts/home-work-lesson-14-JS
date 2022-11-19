@@ -27,10 +27,8 @@ console.log("numberArray2 === numberArray", numberArray2 === numberArray);
 
 // 4 Вивести елементи з парними індексами.
 function evenIndex(array) {
-  for (let i = 2; i < array.length; i++) {
-    if (i % 2 === 0) {
-      console.log(`array[${i}] = ${array[i]}`);
-    }
+  for (let i = 0; i < array.length; i += 2) {
+    console.log(`array[${i}] = ${array[i]}`);
   }
 }
 console.log(evenIndex(numberArray));
@@ -38,7 +36,7 @@ console.log(evenIndex(numberArray));
 // 5 Вивести лише парні елементи (парні числа діляться на 2 без залишку).
 function evenNumbers(array) {
   for (let i = 0; i < array.length; i++) {
-    if (array[i] % 2 === 0 && array[i] !== 0) {
+    if (array[i] % 2 === 0) {
       console.log(`array[${i}] = ${array[i]}`);
     }
   }
@@ -56,16 +54,19 @@ function zeroNumbers(array) {
 console.log(zeroNumbers(numberArray));
 
 // 7 Підрахувати кількість нульових елементів.
+
 function haveZeroNumbers(array) {
+  let zeros = 0;
   for (let i = 0; i < array.length; i++) {
-    let zeros = 0;
     if (array[i] === 0) {
       zeros++;
-      console.log(`В массиві ${zeros} елемент(-ів) зі значенням === 0`);
     }
   }
+  return zeros;
 }
-console.log(haveZeroNumbers(numberArray));
+console.log(
+  `В массиві ${haveZeroNumbers(numberArray)} елемент(-ів) зі значенням === 0`
+);
 
 // // Методи перебору масивів (forEach, filter, map, findIndex, *some, *every).
 
@@ -80,7 +81,7 @@ const arrayResult = arrayOriginal.filter(isNotZero);
 console.log("arrayResult", arrayResult);
 
 // 9 Отримати новий масив їх заданого, який міститиме всі елементи вихідного, поділені на 100 (99, 5, 0, 9, 30 => 0.99, 0.05, 0, 0.09, 0.3).
-const arrayOriginal1 = [99, 5, 0, 9, 30];
+const arrayOriginal1 = [99, 5, 0, 9, 30, 10];
 console.log("arrayOriginal1", arrayOriginal1);
 
 function divided100(num) {
@@ -98,6 +99,7 @@ function cubeNumber(num) {
 arrayOriginal1.forEach(cubeNumber);
 
 // 11 Визначити індекс елемента, квадрат якого дорівнює 100, і видалити його, або видати діагностичне повідомлення, якщо такого елементу не існує.
+console.log("arrayOriginal1", arrayOriginal1);
 function findIn(item) {
   return item ** 2 === 100;
 }
@@ -107,7 +109,7 @@ console.log("numIndex", numIndex);
 if (numIndex === -1) {
   console.log("Такого елементу не існує");
 } else {
-  console.log("Індекс значення = " + arrayOriginal1.splice(numIndex, 1));
+  console.log(arrayOriginal1.splice(numIndex, 1));
 }
 console.log("arrayOriginal1", arrayOriginal1);
 
