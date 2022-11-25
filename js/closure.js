@@ -6,11 +6,10 @@ const result1 = myCounter(); // => 5
 const result2 = myCounter(); // => 10
 const result3 = myCounter(); // => 15
 
-function customCounter1() {
-  let i = 0;
-
+function customCounter1(stepValue) {
+  let startValue = 0;
   return function () {
-    return (i += 5);
+    return (startValue += stepValue);
   };
 }
 console.log("result1 =>", result1);
@@ -22,16 +21,15 @@ console.log("result3 =>", result3);
 // * Змініть приклад із заняття по замиканню (counter) так, щоб користувач задавав початкове значення лічильника (у прикладі із заняття це 0) і крок зміни лічильника (у прикладі із заняття це 1).
 
 // Приклад використання:
-const myCounter2 = customCounter2(44, 3);
+const myCounter2 = customCounter2(1, 5);
 const result4 = myCounter2(); // => 6
 const result5 = myCounter2(); // => 11
 const result6 = myCounter2(); // => 16
-function customCounter2(a, b) {
-  let i = a;
-  let j = b;
-
+function customCounter2(startValue, stepValue) {
+  let value = startValue;
+  let step = stepValue;
   return function () {
-    return (i += j);
+    return (value += step);
   };
 }
 console.log("result4 =>", result4);
