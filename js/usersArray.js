@@ -41,9 +41,16 @@ console.log("users[55].getFullName() =>", users[55].getFullName());
 function femalePupilsAge(pupil) {
   return pupil.age >= 6 && pupil.age <= 18 && !pupil.isMale;
 }
+const femaleInformation = users.filter(femalePupilsAge);
 
-const femaleFullNames = users.filter(femalePupilsAge);
-console.log("femaleFullNames", femaleFullNames);
+function fullNames(pupil) {
+  return pupil.getFullName();
+}
+const femaleFullNames = femaleInformation.map(fullNames);
+console.log(
+  "Імена осіб жіночої статі шкільного віку (6 – 18 років) :>> ",
+  femaleFullNames
+);
 
 // 1.3 Видалити з масиву користувача з email useremail5@gmail.com
 
@@ -52,8 +59,11 @@ function wrongUser(wrongEmail) {
 }
 
 const deleteUser = users.findIndex(wrongUser);
-
-users.splice(deleteUser, 1);
+if (deleteUser === -1) {
+  console.log(`Такого email не існує!`);
+} else {
+  users.splice(deleteUser, 1);
+}
 console.dir(users);
 
 // 1.4 Перевірити, чи є серед користувачів користувач з email`ом useremail99@gmail.com
@@ -62,10 +72,19 @@ function featuredEmail(userEmail) {
   return userEmail.email === "useremail99@gmail.com";
 }
 
-const featuredUser =
-  users.findIndex(featuredEmail) === -1
-    ? console.log("Користувач з заданим email не існує")
-    : console.log("Користувач з заданим email існує");
+users.findIndex(featuredEmail) === -1
+  ? console.log("Користувач з заданим email не існує")
+  : console.log("Користувач з заданим email існує");
+
+// Варіант з .some
+
+function featuredEmail2(userEmail) {
+  return userEmail.email === "useremail99@gmail.com";
+}
+
+users.some(featuredEmail2)
+  ? console.log("Користувач з заданим email існує")
+  : console.log("Користувач з заданим email не існує");
 
 // 1.5 Перевірити, чи всі користувачі підписані (subscribed).
 
