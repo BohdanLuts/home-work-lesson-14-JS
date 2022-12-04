@@ -14,21 +14,24 @@ class Vehicle {
     this.dimensions = dimensions;
     this.brand = brand;
     this.model = model;
-    this.manufactureDate = new Date(manufactureDate);
+    this.manufactureDate = manufactureDate;
   }
   // - методи:
   // --- getFullInfo() - повертає рядок з інформацією про транспортний засіб: бренд, модель, вік;
   getFullInfo() {
-    return `Бренд: ${this.brand}, модель: ${
-      this.model
-    }, вік: ${this.getAge()} роки(-ів).`;
+    return `Info: ${this.brand}, ${this.model}, ${this.getAge()}`;
   }
   // --- getAge() - повертає кількість років із дня виробництва.
   getAge() {
-    return new Date().getFullYear() - this.manufactureDate;
+    return new Date().getFullYear() - this.manufactureDate.getFullYear();
   }
 }
-const vehicle1 = new Vehicle("5000*2200*1800", "BMW", "X5", 2012);
+const vehicle1 = new Vehicle(
+  { width: 2300, height: 1800, length: 4500 },
+  "BMW",
+  "X5",
+  new Date(2012, 7, 25)
+);
 console.log("vehicle1 :>> ", vehicle1);
 console.log("getFullInfo() :>> ", vehicle1.getFullInfo());
 console.log("getAge() :>> ", vehicle1.getAge());
@@ -40,8 +43,10 @@ class PassengerTransport extends Vehicle {
     brand,
     model,
     manufactureDate,
-    passengerLimit,
-    passengerCount
+    ////////////////////////////
+    passengerLimit, ///////////////
+    passengerCount ///////////////
+    /////////////////////////////
   ) {
     super(dimensions, brand, model, manufactureDate);
     // - властивостями:
@@ -50,9 +55,26 @@ class PassengerTransport extends Vehicle {
     this.passengerLimit = passengerLimit;
     this.passengerCount = passengerCount;
   }
+  set passengerCount(value) {
+    if (typeof value !== "number") {
+      throw new TypeError("passengerCount must be number");
+    }
+    if (value < 0 || value > this.passengerLimit || !Number.isInteger(value)) {
+      throw new RangeError(`passengerLimit must max = ${this.passengerLimit}`);
+    }
+    this._passengerCount = value;
+  }
+  get passengerCount() {
+    return this._passengerCount;
+  }
+
   // - методом addPassenger() для додавання ще одного пасажира з перевіркою можливості додавання (чи ще незайняті місця) - повертає true (якщо пасажир доданий) або false (якщо не доданий).
   addPassenger() {
-    return this.passengerLimit > this.passengerCount;
+    if (this.passengerLimit > this.passengerCount) {
+      this.passengerCount += 1;
+      return true;
+    }
+    return false;
   }
   // Перевизначити метод getFullInfo: повертає рядок з інформацією про транспортний засіб:
   // бренд,
@@ -60,19 +82,19 @@ class PassengerTransport extends Vehicle {
   // вік,
   // максимальна кількість пасажирських місць.
   getFullInfo() {
-    return `Бренд: ${this.brand}, модель: ${
-      this.model
-    }, вік: ${this.getAge()} роки(-ів), MAX к-ть місць:${this.passengerLimit}.`;
+    return `${super.getFullInfo()}, ${this.passengerLimit}`;
   }
 }
+
 const passengerTransport1 = new PassengerTransport(
-  "10000*3000*2500",
+  { width: 2500, height: 3000, length: 10000 },
   "LAZ",
   "NewBus",
-  2005,
+  new Date(2005, 2, 22),
   40,
   29
 );
+
 console.log("passengerTransport1 :>> ", passengerTransport1);
 console.log("Наявність вільних місць :>> ", passengerTransport1.addPassenger());
 console.log(
@@ -88,6 +110,19 @@ class FreightTransport extends Vehicle {
     // --- capacity - вантажопідйомність,
     this.capacity = capacity;
   }
+  set capacity(value) {
+    if (typeof value !== "number") {
+      throw new TypeError("capacity must be number");
+    }
+    if (value < 0 || !Number.isInteger(value)) {
+      throw new RangeError(`capacity must be > 0`);
+    }
+    this._capacity = value;
+  }
+  get capacity() {
+    return this._capacity;
+  }
+
   // - методом checkLoadingPossibility(weight) - для перевірки можливості завантаження маси weight. Повертає булеан.
   checkLoadingPossibility(weight) {
     return this.capacity >= weight;
@@ -98,18 +133,14 @@ class FreightTransport extends Vehicle {
   // вік,
   // вантажопідйомність.
   getFullInfo() {
-    return `Бренд: ${this.brand}, модель: ${
-      this.model
-    }, вік: ${this.getAge()} роки(-ів), вантажопідйомність ${
-      this.capacity
-    } кг.`;
+    return `${super.getFullInfo()}, ${this.capacity}`;
   }
 }
 const freightTransport1 = new FreightTransport(
-  "10000*3000*2500",
+  { width: 500, height: 3500, length: 7000 },
   "KAMAZ",
   "6533",
-  1998,
+  new Date(1998, 11, 11),
   18000
 );
 console.log("freightTransport1 :>> ", freightTransport1);
