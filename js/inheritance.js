@@ -43,10 +43,8 @@ class PassengerTransport extends Vehicle {
     brand,
     model,
     manufactureDate,
-    ////////////////////////////
-    passengerLimit, ///////////////
-    passengerCount ///////////////
-    /////////////////////////////
+    passengerLimit,
+    passengerCount
   ) {
     super(dimensions, brand, model, manufactureDate);
     // - властивостями:
