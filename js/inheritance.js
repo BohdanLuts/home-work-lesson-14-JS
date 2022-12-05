@@ -83,22 +83,34 @@ class PassengerTransport extends Vehicle {
     return `${super.getFullInfo()}, ${this.passengerLimit}`;
   }
 }
-
-const passengerTransport1 = new PassengerTransport(
-  { width: 2500, height: 3000, length: 10000 },
-  "LAZ",
-  "NewBus",
-  new Date(2005, 2, 22),
-  40,
-  29
-);
-
-console.log("passengerTransport1 :>> ", passengerTransport1);
-console.log("Наявність вільних місць :>> ", passengerTransport1.addPassenger());
-console.log(
-  "passengerTransport1.getFullInfo() :>> ",
-  passengerTransport1.getFullInfo()
-);
+try {
+  const passengerTransport1 = new PassengerTransport(
+    { width: 2500, height: 3000, length: 10000 },
+    "LAZ",
+    "NewBus",
+    new Date(2005, 2, 22),
+    40,
+    29
+  );
+  console.log("passengerTransport1 :>> ", passengerTransport1);
+  console.log(
+    "Наявність вільних місць :>> ",
+    passengerTransport1.addPassenger()
+  );
+  console.log(
+    "passengerTransport1.getFullInfo() :>> ",
+    passengerTransport1.getFullInfo()
+  );
+} catch (err) {
+  console.dir(err);
+  if (err instanceof TypeError) {
+    console.log("Input incorrect type (number)");
+  } else if (err instanceof RangeError) {
+    console.log("Value must be positive integer");
+  } else {
+    console.log("Something went wrong");
+  }
+}
 
 // Дочірній клас FreightTransport розширюється:
 class FreightTransport extends Vehicle {
@@ -134,21 +146,33 @@ class FreightTransport extends Vehicle {
     return `${super.getFullInfo()}, ${this.capacity}`;
   }
 }
-const freightTransport1 = new FreightTransport(
-  { width: 500, height: 3500, length: 7000 },
-  "KAMAZ",
-  "6533",
-  new Date(1998, 11, 11),
-  18000
-);
-console.log("freightTransport1 :>> ", freightTransport1);
-console.log(
-  "Можливість завантаження:>> ",
-  freightTransport1.checkLoadingPossibility(40000)
-);
-console.log(
-  "freightTransport1.getFullInfo() :>> ",
-  freightTransport1.getFullInfo()
-);
+
+try {
+  const freightTransport1 = new FreightTransport(
+    { width: 500, height: 3500, length: 7000 },
+    "KAMAZ",
+    "6533",
+    new Date(1998, 11, 11),
+    10000
+  );
+  console.log("freightTransport1 :>> ", freightTransport1);
+  console.log(
+    "Можливість завантаження:>> ",
+    freightTransport1.checkLoadingPossibility(40000)
+  );
+  console.log(
+    "freightTransport1.getFullInfo() :>> ",
+    freightTransport1.getFullInfo()
+  );
+} catch (err) {
+  console.dir(err);
+  if (err instanceof TypeError) {
+    console.log("Input incorrect type (number)");
+  } else if (err instanceof RangeError) {
+    console.log("Value must be positive integer");
+  } else {
+    console.log("Something went wrong");
+  }
+}
 
 // Створити об'єкти всіх класів ієрархії, протестувати роботу методів.
